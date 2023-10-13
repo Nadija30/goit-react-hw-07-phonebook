@@ -1,21 +1,25 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { delContact, getphoneBooksValue } from 'redux/contactsSlice';
-import { getFilter } from 'redux/filterSlise';
+import { selectContactsList } from 'redux/contacts/slice';
+import { deleteContactsThunk, getContactsThunk } from 'redux/contacts/thunk';
+import { selectContactsFilter } from 'redux/filters/slice';
 import css from './ContactList.module.css';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getContactsThunk());
+  }, [dispatch]);
 
-  const phoneBook = useSelector(getphoneBooksValue);
+  const contacts = useSelector(selectContactsList);
+  const filter = useSelector(selectContactsFilter);
 
-  const filterPhoneBook = useSelector(getFilter);
-
-  const visibleContacts = phoneBook.filter(({ name }) =>
-    name.toLowerCase().includes(filterPhoneBook)
+  const visibleContacts = contacts.filter(({ name }) =>
+    name.toLowerCase().includes(filter)
   );
 
   const deleteContact = contactId => {
-    dispatch(delContact(contactId));
+    dispatch(deleteContactsThunk(contactId));
   };
   return (
     <ul className={css.list}>

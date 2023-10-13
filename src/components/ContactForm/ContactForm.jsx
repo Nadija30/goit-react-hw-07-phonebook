@@ -2,7 +2,8 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addContact, getphoneBooksValue } from 'redux/contactsSlice';
+import { selectContactsList } from 'redux/contacts/slice';
+import { createContactsThunk } from 'redux/contacts/thunk';
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
@@ -10,7 +11,7 @@ export const ContactForm = () => {
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
-  const phoneBook = useSelector(getphoneBooksValue);
+  const contacts = useSelector(selectContactsList);
 
   const handleChange = ({ target: { value, name } }) => {
     if (name === 'name') setName(value);
@@ -22,18 +23,18 @@ export const ContactForm = () => {
     const data = { name, number };
     const newObj = { ...data, id: nanoid() };
 
-    if (isNameNew(phoneBook, newObj) !== undefined) {
+    if (isNameNew(contacts, newObj) !== undefined) {
       toast.warning(`${newObj.name} is already in contacts`);
       return;
     }
 
-    dispatch(addContact(newObj));
+    dispatch(createContactsThunk(newObj));
 
     reset();
   };
 
-  const isNameNew = (phoneBook, newObj) => {
-    return phoneBook.find(
+  const isNameNew = (contacts, newObj) => {
+    return contacts.find(
       ({ name }) => name.toLowerCase() === newObj.name.toLowerCase()
     );
   };

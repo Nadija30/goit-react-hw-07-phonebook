@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterSet, getFilter } from 'redux/filterSlise';
+import { filterSet, selectContactsFilter } from 'redux/filters/slice';
 import css from './Filter.module.css';
 export const Filter = () => {
   const dispatch = useDispatch();
 
-  const filterPhoneBook = useSelector(getFilter);
+  const filter = useSelector(selectContactsFilter);
 
   const onChangeFilter = event => {
     const { value } = event.currentTarget;
@@ -20,7 +20,7 @@ export const Filter = () => {
           className={css.input}
           name="filter"
           type="text"
-          value={filterPhoneBook}
+          value={filter}
           onChange={onChangeFilter}
         />
       </label>
