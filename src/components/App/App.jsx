@@ -22,7 +22,7 @@ export const App = () => {
       <ContactForm />
       <h2>Contacts</h2>
       {contacts.length === 0 && !error && !isLoading ? (
-        'У вас ще немає контактів'
+        "You don't have any contacts yet"
       ) : (
         <Filter />
       )}
