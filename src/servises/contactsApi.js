@@ -6,9 +6,7 @@ export const getContacts = async () => {
 };
 
 export const createContacts = async data => {
-  const res = await fetch(`${BASE_URL}/contacts`, {
-    body: JSON.stringify(data),
-  });
+  const res = await fetch(`${BASE_URL}/contacts`, data);
   return await res.json();
 };
 
