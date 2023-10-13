@@ -35,7 +35,7 @@ export const ContactForm = () => {
 
   const isNameNew = (contacts, newObj) => {
     return contacts.find(
-      ({ name }) => name?.toLowerCase() === newObj.name.toLowerCase()
+      ({ name }) => name.toLowerCase() === newObj.name.toLowerCase()
     );
   };
 
