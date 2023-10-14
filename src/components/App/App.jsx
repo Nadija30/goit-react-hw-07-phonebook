@@ -3,6 +3,7 @@ import { Filter } from '../Filter/Filter';
 import { ContactList } from '../ContactList/ContactList';
 import css from './App.module.css';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   selectContactsList,
   selectError,
@@ -16,6 +17,7 @@ export const App = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const contacts = useSelector(selectContactsList);
+
   return (
     <div className={css.container}>
       <h1>Phonebook</h1>
